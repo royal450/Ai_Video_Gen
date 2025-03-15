@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5 mb-5">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                <h1 class="display-4 fw-bold mb-4">Transform Text into Amazing AI Videos</h1>
+                <p class="lead mb-4">Create engaging videos with AI-powered avatars and natural voices in multiple languages</p>
+                <a href="#create" class="btn btn-primary btn-lg">Start Creating <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5 mb-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up">Amazing Features</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-card text-center p-4">
+                    <i class="bi bi-person-bounding-box feature-icon mb-3"></i>
+                    <h3>AI Avatars</h3>
+                    <p>Choose from 20+ unique AI-generated avatars with realistic expressions</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card text-center p-4">
+                    <i class="bi bi-translate feature-icon mb-3"></i>
+                    <h3>Multiple Languages</h3>
+                    <p>Support for 8+ languages including Hindi, English, Urdu, and more</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-card text-center p-4">
+                    <i class="bi bi-camera-video feature-icon mb-3"></i>
+                    <h3>HD Videos</h3>
+                    <p>Generate high-quality videos with smooth animations and crystal-clear audio</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Create Section -->
+<section id="create" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-lg" data-aos="fade-up">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center mb-4">Create Your AI Video</h2>
+
+                        <!-- Avatar Selection -->
+                        <div class="mb-4">
+                            <h4 class="text-center mb-3">Select Avatar</h4>
+                            <div class="avatar-grid">
+                                {% for avatar in avatars %}
+                                <div class="avatar-item">
+                                    <img src="{{ avatar }}" alt="Avatar" class="avatar-image" data-url="{{ avatar }}">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Text Input -->
+                        <div class="mb-4">
+                            <h4>Enter Text</h4>
+                            <div class="text-muted mb-2">
+                                <small>Write the text you want the avatar to speak (up to 500 characters)</small>
+                            </div>
+                            <textarea id="textInput" class="form-control" rows="4" maxlength="500" 
+                                    placeholder="Enter the text for your video..."></textarea>
+                            <div class="text-end mt-1">
+                                <small class="text-muted">
+                                    <span id="charCount">0</span>/500 characters
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Voice Selection -->
+                        <div class="mb-4">
+                            <h4>Select Voice</h4>
+                            <div class="voice-preview-container mb-2">
+                                <button class="btn btn-sm btn-outline-primary" onclick="previewVoice()">
+                                    <i class="bi bi-play-circle"></i> Preview Voice
+                                </button>
+                            </div>
+                            <select id="voiceSelect" class="form-select">
+                                {% include 'voice_options.html' %}
+                            </select>
+                        </div>
+
+                        <!-- Advanced Options -->
+                        <div class="mb-4">
+                            <div class="accordion" id="advancedOptions">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" 
+                                                data-bs-toggle="collapse" data-bs-target="#collapseOptions">
+                                            Advanced Options
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOptions" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Speaking Speed</label>
+                                                <input type="range" class="form-range" id="speedRange" 
+                                                       min="0.5" max="2" step="0.1" value="1">
+                                                <div class="d-flex justify-content-between">
+                                                    <small>Slower</small>
+                                                    <small>Normal</small>
+                                                    <small>Faster</small>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Background Music</label>
+                                                <select class="form-select" id="bgMusicSelect">
+                                                    <option value="">None</option>
+                                                    <option value="calm">Calm</option>
+                                                    <option value="upbeat">Upbeat</option>
+                                                    <option value="corporate">Corporate</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <div class="text-center">
+                            <button id="generateBtn" class="btn btn-primary btn-lg px-5" onclick="generateVideo()">
+                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                                Generate Video
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div id="previewSection" class="card mt-4 shadow-lg d-none" data-aos="fade-up">
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-3">Preview</h4>
+                        <div class="ratio ratio-16x9 mb-3">
+                            <video id="videoPreview" controls class="rounded"></video>
+                        </div>
+                        <div class="text-center">
+                            <button id="downloadBtn" class="btn btn-success btn-lg" onclick="downloadVideo()">
+                                <i class="bi bi-download"></i> Download Video
+                            </button>
+                            <button class="btn btn-outline-primary btn-lg ms-2" onclick="shareVideo()">
+                                <i class="bi bi-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Generations -->
+<section id="recent" class="py-5">
+    <div class="container">
+        {% if recent_generations %}
+        <h2 class="text-center mb-4" data-aos="fade-up">Recent Creations</h2>
+        <div class="row g-4">
+            {% for gen in recent_generations %}
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title text-truncate mb-0">{{ gen.text[:50] }}...</h5>
+                            <span class="badge {% if gen.status == 'completed' %}bg-success{% else %}bg-warning{% endif %}">
+                                {{ gen.status }}
+                            </span>
+                        </div>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <i class="bi bi-clock"></i> {{ gen.created_at.strftime('%Y-%m-%d %H:%M') }}
+                            </small>
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-megaphone"></i> Voice: {{ gen.voice }}
+                        </p>
+                        {% if gen.status == 'completed' and gen.video_path %}
+                        <div class="mt-3">
+                            <a href="{{ url_for('download', filename=gen.video_path.split('/')[-1]) }}" 
+                               class="btn btn-sm btn-outline-success">
+                                <i class="bi bi-download"></i> Download
+                            </a>
+                            <button class="btn btn-sm btn-outline-primary ms-2" 
+                                    onclick="copyShareLink('{{ gen.video_path }}')">
+                                <i class="bi bi-share"></i> Share
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

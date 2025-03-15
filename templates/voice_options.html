@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Voice Selector</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .voice-selector {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        select option {
+            background: #243b55;
+            color: white;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="voice-selector">
+        <label for="voiceSelect">🎤 Select a Voice:</label>
+        <select id="voiceSelect" class="form-select mt-2">
+            <!-- English -->
+            <optgroup label="🌎 English">
+                <option value="en-US-AriaNeural">English (US) - Aria</option>
+                <option value="en-GB-SoniaNeural">English (UK) - Sonia</option>
+                <option value="en-US-GuyNeural">English (US) - Guy</option>
+                <option value="en-IN-NeerjaNeural">English (India) - Neerja</option>
+            </optgroup>
+
+            <!-- Hindi -->
+            <optgroup label="🇮🇳 Hindi">
+                <option value="hi-IN-SwaraNeural">Hindi - Swara</option>
+                <option value="hi-IN-MadhurNeural">Hindi - Madhur</option>
+            </optgroup>
+
+            <!-- Urdu -->
+            <optgroup label="🇵🇰 Urdu">
+                <option value="ur-PK-UzmaNeural">Urdu - Uzma</option>
+                <option value="ur-PK-AsadNeural">Urdu - Asad</option>
+            </optgroup>
+
+            <!-- Marathi -->
+            <optgroup label="🇮🇳 Marathi">
+                <option value="mr-IN-AarohiNeural">Marathi - Aarohi</option>
+                <option value="mr-IN-ManoharNeural">Marathi - Manohar</option>
+            </optgroup>
+
+            <!-- Punjabi -->
+            <optgroup label="🇮🇳 Punjabi">
+                <option value="pa-IN-GurleenNeural">Punjabi - Gurleen</option>
+                <option value="pa-IN-BaljitNeural">Punjabi - Baljit</option>
+            </optgroup>
+
+            <!-- French -->
+            <optgroup label="🇫🇷 French">
+                <option value="fr-FR-DeniseNeural">French - Denise</option>
+                <option value="fr-FR-HenriNeural">French - Henri</option>
+                <option value="fr-CA-SylvieNeural">French (Canada) - Sylvie</option>
+            </optgroup>
+
+            <!-- Chinese -->
+            <optgroup label="🇨🇳 Chinese">
+                <option value="zh-CN-XiaoxiaoNeural">Chinese (Mandarin) - Xiaoxiao</option>
+                <option value="zh-CN-YunxiNeural">Chinese (Mandarin) - Yunxi</option>
+                <option value="zh-HK-HiuGaaiNeural">Chinese (Cantonese) - HiuGaai</option>
+            </optgroup>
+
+            <!-- Bengali -->
+            <optgroup label="🇮🇳 Bengali">
+                <option value="bn-IN-TanishaaNeural">Bengali - Tanishaa</option>
+                <option value="bn-IN-BashkarNeural">Bengali - Bashkar</option>
+            </optgroup>
+
+            <!-- Tamil -->
+            <optgroup label="🇮🇳 Tamil">
+                <option value="ta-IN-PallaviNeural">Tamil - Pallavi</option>
+                <option value="ta-IN-ValluvarNeural">Tamil - Valluvar</option>
+            </optgroup>
+
+            <!-- Telugu -->
+            <optgroup label="🇮🇳 Telugu">
+                <option value="te-IN-ShrutiNeural">Telugu - Shruti</option>
+                <option value="te-IN-MohanNeural">Telugu - Mohan</option>
+            </optgroup>
+        </select>
+    </div>
+
+</body>
+</html>
